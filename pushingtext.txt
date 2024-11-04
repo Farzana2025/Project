@@ -1,0 +1,1 @@
+to push a file through local repo at first need to set working directory to local repo directory with cd command. then using echo we create a text file, then add command used to add the file in git area, then we need to commit and then push
