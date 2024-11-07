@@ -1,0 +1,102 @@
+sudo su-
+ : get root previlage (osboxes@osboxes -> root@osboxes)
+
+apt get
+
+systemctl start apache2
+ : local address get
+
+network card is virtual card (we can check ifconfig : inet is different / ubuntu, kali)
+What is 127.0.0.1?
+
+traffic road / load? one-to-one relationship 
+127.0.0.1:A : what is A?? / What is 80 as A?
+10.0.4.10:80
+socket?
+
+man nc (it means net cat)
+ : it has lots of options
+
+netstat -an | more
+
+systemctl stop apache2
+
+TimeWait happens because something is killed.
+
+nc -lv -p 451 (port : 451 means)
+-> Listening
+
+
+
+telnet 10.0.4.10 451
+In this case, Connected to 10.0.4.10.
+Ctrl C(^C) : Do not listening anymore.
+-> Connection closed by foreign host.
+
+telnet 10.0.4.10 451
+In this case, telnet: Unable to connect to remote host: Connection refused (Because it was killed)
+
+
+We have to know which one is server and client.
+
+By using wireshark, we can check handsake.
+: open and close an site. 
+
+Client Hello : Trying to connecting.
+Server Hello : It means server connected.
+TLS = Transfer Layer Security
+
+In networking and security contexts, a "handshake" often refers to the initial steps of a communication between two devices or systems. The specifics of a handshake can vary depending on the protocol being used (e.g., TCP, TLS/SSL), and it may involve multiple steps to establish a connection securely. I'll provide a general overview of how to understand where a handshake occurs and what line it begins, with a focus on TCP handshakes as an example.
+
+Understanding a TCP Handshake:
+
+In a TCP (Transmission Control Protocol) handshake, three steps are involved in establishing a connection between a client and a server:
+
+SYN (Synchronize)
+
+The client sends a TCP packet with the SYN flag set to the server.
+This packet is often referred to as the "SYN packet."
+The server acknowledges this request by sending a SYN-ACK packet.
+SYN-ACK (Synchronize-Acknowledge)
+
+The server responds with a TCP packet that has both the SYN and ACK flags set.
+This packet is known as the "SYN-ACK packet" and acknowledges the client's request while indicating its readiness to establish a connection.
+ACK (Acknowledge)
+
+Finally, the client sends an ACK packet back to the server, acknowledging the server's readiness to establish the connection.
+Once the server receives this ACK packet, the handshake is complete, and the connection is considered established.
+Identifying the Handshake in Network Traffic:
+
+To identify where a TCP handshake occurred and what lines it begins in network traffic, you typically need to analyze network packet captures using a tool like Wireshark or tcpdump. Here's a general process:
+
+Capture Network Traffic:
+
+Use a network packet capture tool (e.g., Wireshark) to capture network traffic between the client and server.
+Start the capture before the communication begins.
+Filter the Traffic:
+
+Apply filters in the packet capture tool to isolate the communication between the client and server.
+For example, you can use filters like ip.src == client_ip && ip.dst == server_ip && tcp.port == port_number to focus on the relevant traffic.
+Analyze the Packets:
+
+Examine the packets in the filtered capture to identify the handshake.
+Look for packets with the SYN, SYN-ACK, and ACK flags set, as described earlier.
+Typically, the handshake begins with the client sending a SYN packet to the server.
+Identify the Start Line:
+
+To determine which line in the packet capture corresponds to the start of the handshake, you can check the packet sequence numbers.
+The client's SYN packet will have an initial sequence number (ISN), and the server's SYN-ACK packet will acknowledge this ISN. The ISN is typically incremented for each new connection.
+By examining the packet sequence numbers and flags, you can pinpoint the beginning of the TCP handshake and trace the subsequent steps in the connection establishment process.
+
+Please note that analyzing network packet captures requires some familiarity with networking protocols and tools like Wireshark. Additionally, the exact method for filtering and analyzing packets may vary depending on the specific network capture tool you are using.
+How to download whole data? save pcap file. file name is my name
+
+window and linus use different type slash when they make any roots
+Window : \
+linux : /
+
+df = disk file
+df -k
+
+cd /mnt/transferred      	// transferred is an directory made by professor
+ll -la
